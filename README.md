@@ -1,5 +1,3 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/xIbq4TFL)
-
 # 🚀 Personal Finance Tracker REST API - IT22000644
 
 *A powerful and easy-to-use API for managing expenses, tracking income, and gaining insights into your financial health.* 💰📊  
