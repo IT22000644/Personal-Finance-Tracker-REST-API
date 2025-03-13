@@ -1,0 +1,6 @@
+.prettierrc
+*.config.json
+*.config.js
+*.md
+package.json
+package-lock.json

@@ -1,0 +1,68 @@
+{
+  "name": "af-assingment-api",
+  "version": "1.0.0",
+  "description": "REST API for personal finance application",
+  "keywords": [
+    "finance",
+    "personal"
+  ],
+  "homepage": "https://github.com/SE1020-IT2070-OOP-DSA-25/project-IT22000644#readme",
+  "bugs": {
+    "url": "https://github.com/SE1020-IT2070-OOP-DSA-25/project-IT22000644/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SE1020-IT2070-OOP-DSA-25/project-IT22000644.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "author": "M N Dikkumbura",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js test/unit",
+    "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js test/integration --detectOpenHandles",
+    "dev": "nodemon --exec node app.js",
+    "start": "node app.js",
+    "lint": "npx eslint .",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier . --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
+    "@jest/globals": "^29.7.0",
+    "eslint": "^8.57.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.0.2",
+    "eslint-plugin-mocha": "^10.5.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "globals": "^16.0.0",
+    "jest": "^29.7.0",
+    "mockingoose": "^2.16.2",
+    "nodemon": "^3.1.9",
+    "prettier": "3.5.2",
+    "rewire": "^7.0.0",
+    "supertest": "^7.0.0"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "eslint-plugin-jest": "^28.11.0",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.11.0",
+    "morgan": "^1.10.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.10.0",
+    "winston": "^3.17.0"
+  }
+}
