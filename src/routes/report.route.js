@@ -1,11 +1,15 @@
 import { Router } from 'express'
 
-import generateReportData from '../controllers/report.controller.js'
+import {
+    userSummary,
+    generateReportData,
+} from '../controllers/report.controller.js'
 
 const reportRouter = Router()
 
 const urlPrefix = '/reports'
 
-reportRouter.get(`${urlPrefix}/:id`, generateReportData)
+reportRouter.get(`${urlPrefix}/transactions/:id`, generateReportData)
+reportRouter.get(`${urlPrefix}/summary/:id`, userSummary)
 
 export default reportRouter

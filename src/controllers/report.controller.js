@@ -5,7 +5,7 @@ import * as goalService from '../services/goal.service.js'
 import { createAPIResponse } from '../utils/request-validations.js'
 import { APP_ERROR_MESSAGE, HTTP_RESPONSE_CODE } from '../config/constants.js'
 
-const generateReportData = async (req, res, next) => {
+export const generateReportData = async (req, res, next) => {
     try {
         const { id } = req.params
 
@@ -54,4 +54,37 @@ const generateReportData = async (req, res, next) => {
     }
 }
 
-export default generateReportData
+export const userSummary = async (req, res, next) => {
+    try {
+        const { balance, income, expense } =
+            await transactionService.getCurrentBalance(req.params.id)
+
+        const workbook = new ExcelJS.Workbook()
+        const worksheet = workbook.addWorksheet('User Summary')
+
+        worksheet.columns = [
+            { header: 'Current Balance', key: 'currentBalance', width: 20 },
+            { header: 'Total Income', key: 'totalIncome', width: 20 },
+            { header: 'Total Expense', key: 'totalExpense', width: 20 },
+        ]
+
+        worksheet.addRow({
+            currentBalance: balance,
+            totalIncome: income,
+            totalExpense: expense,
+        })
+
+        const timestamp = new Date().toISOString().replace(/[-:.]/g, '_')
+        const filename = `user_summary_${timestamp}.xlsx`
+        res.setHeader(
+            'Content-Type',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
+
+        await workbook.xlsx.write(res)
+        res.end()
+    } catch (error) {
+        next(error)
+    }
+}

@@ -234,6 +234,9 @@ export const getAllNonPaginated = async (id) => {
     }
 
     const transactions = await Transaction.find({ user: id, isActive: true })
+        .populate('user', 'username email')
+        .populate('category')
+        .populate('goal')
 
     return transactions
 }
