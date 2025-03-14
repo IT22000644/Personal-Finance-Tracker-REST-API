@@ -16,15 +16,7 @@ const generateReportData = async (req, res, next) => {
             })
         }
 
-        const transactions = await transactionService.getAll(id)
-        const budgets = await budgetService.getAll(id)
-        const goals = await goalService.getAll(id)
-
-        const report = {
-            transactions,
-            budgets,
-            goals,
-        }
+        const transactions = await transactionService.getAllNonPaginated(id)
 
         const workbook = new ExcelJS.Workbook()
         const worksheet = workbook.addWorksheet('Report')
@@ -39,39 +31,21 @@ const generateReportData = async (req, res, next) => {
 
         transactions.forEach((transaction) => {
             worksheet.addRow({
-                type: 'Transaction',
+                type: transaction.type,
                 amount: transaction.amount,
-                category: transaction.category,
+                category: transaction.category.name,
                 tags: transaction.tags.join(', '),
                 date: transaction.date,
             })
         })
 
-        budgets.forEach((budget) => {
-            worksheet.addRow({
-                type: 'Budget',
-                amount: budget.amount,
-                category: budget?.category || '',
-                tags: budget?.tags?.join(', ') || '',
-                date: budget.startDate,
-            })
-        })
-
-        goals.forEach((goal) => {
-            worksheet.addRow({
-                type: 'Goal',
-                amount: goal.amount,
-                category: goal?.category || '',
-                tags: goal?.tags?.join(', ') || '',
-                date: goal?.startDate || '',
-            })
-        })
-
+        const timestamp = new Date().toISOString().replace(/[-:.]/g, '_')
+        const filename = `transaction_report_${timestamp}.xlsx`
         res.setHeader(
             'Content-Type',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         )
-        res.setHeader('Content-Disposition', 'attachment; filename=report.xlsx')
+        res.setHeader('Content-Disposition', `attachment; filename=${filename}`)
 
         await workbook.xlsx.write(res)
         res.end()
