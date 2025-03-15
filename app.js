@@ -4,6 +4,7 @@ import cors from 'cors'
 import './src/cron/jobs.js'
 
 import cookieParser from 'cookie-parser'
+import helmet from 'helmet'
 import logger from './src/utils/logger.js'
 import morganMiddlware from './src/middleware/morgan.middleware.js'
 import connect from './src/db/db.js'
@@ -20,6 +21,16 @@ const PORT = process.env.NODE_DOCKER_PORT
 const app = express()
 
 app.use(cookieParser())
+
+app.use(
+    helmet.contentSecurityPolicy({
+        directives: {
+            defaultSrc: ["'self'"], // Restricts everything by default to the same origin
+            frameAncestors: ["'none'"], // Prevents the site from being embedded in iframes
+            formAction: ["'self'"], // Restricts form submissions to the same origin
+        },
+    })
+)
 
 // attach middlware
 app.use(
