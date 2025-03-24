@@ -35,7 +35,7 @@ app.use(
 // attach middlware
 app.use(
     cors({
-        origin: 'http:/localhost',
+        origin: 'http://random.com',
         methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'FETCH'],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
